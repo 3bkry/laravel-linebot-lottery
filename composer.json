@@ -1,5 +1,5 @@
 {
-    "name": "jose13/larave-linebot-lottery",
+    "name": "3bkry/larave-linebot",
     "description": "line-bot lotteryCrawler",
     "authors": [
         {
@@ -9,8 +9,7 @@
     ],
     "license": "MIT",
     "require": {
-        "php": "^7.4",
-        "ext-http": "*",
+        "php": "^8.1.6",
         "ext-json": "*",
         "fabpot/goutte": "^4.0",
         "fideloper/proxy": "^4.4",
