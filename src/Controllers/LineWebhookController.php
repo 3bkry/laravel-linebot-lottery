@@ -9,9 +9,8 @@ use Illuminate\Contracts\Routing\ResponseFactory;
 use Illuminate\Http\Response;
 use Jose13\LaravelLineBotLottery\Services\CheckSignatureService;
 use Jose13\LaravelLineBotLottery\Services\LineBotService;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Http\Request;
+use LINE\LINEBot;
 use LINE\LINEBot\Exception\InvalidEventRequestException;
 use LINE\LINEBot\Exception\InvalidSignatureException;
 use Symfony\Component\HttpFoundation\Response as ResponseAlias;
@@ -30,8 +29,9 @@ class LineWebhookController extends Controller
      */
     public function webhook(Request $request ,Container $container, CheckSignatureService $checkSignatureService, LineBotService $lineBotService)
     {
-        $bot = $container->make('line-bot');
-        //驗證，並獲取該EventObject
+        $httpClient = new LINEBot\HTTPClient\CurlHTTPClient(env('LINE_BOT_CHANNEL_ACCESS_TOKEN'));
+        $bot = new LINEBot($httpClient, ['channelSecret' => env('LINE_BOT_CHANNEL_SECRET')]);
+
         try {
             $webhookEvents = $checkSignatureService->getWebhookEvents($bot, $request);
         } catch (InvalidSignatureException | InvalidEventRequestException | Exception $e) {
