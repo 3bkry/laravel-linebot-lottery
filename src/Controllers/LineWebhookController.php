@@ -27,7 +27,7 @@ class LineWebhookController extends Controller
      * @return Application|ResponseFactory|Response
      * @throws BindingResolutionException
      */
-    public function webhook(Request $request ,Container $container, CheckSignatureService $checkSignatureService, LineBotService $lineBotService)
+    public function webhook(Request $request , CheckSignatureService $checkSignatureService, LineBotService $lineBotService)
     {
         $httpClient = new LINEBot\HTTPClient\CurlHTTPClient(env('LINE_BOT_CHANNEL_ACCESS_TOKEN'));
         $bot = new LINEBot($httpClient, ['channelSecret' => env('LINE_BOT_CHANNEL_SECRET')]);
